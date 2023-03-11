@@ -15,22 +15,27 @@ const AuthCalback = () => {
         setThedata(queryParameters.get("code"));
         window.$statee = queryParameters.get("state"); 
 
-        
-        axios.post('http://localhost:4000/api/proxy', {
-            url: 'https://www.linkedin.com/oauth/v2/accessToken',
-            data: `code=${thedata}&grant_type=authorization_code&client_id=${client_id}&client_secret=${client_secret}&redirect_uri=${redirect_uri}`,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-            })
-            .then(response => {
-            console.log(response.data);
-            window.token = response.data;
-            })
-            .catch(error => {
-            console.log(error);
-            });
-       //window.close();     
+        if(thedata !== ''){
+            axios.post('http://localhost:4000/api/proxy', {
+                url: 'https://www.linkedin.com/oauth/v2/accessToken',
+                data: `code=${thedata}&grant_type=authorization_code&client_id=${client_id}&client_secret=${client_secret}&redirect_uri=${redirect_uri}`,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+                })
+                .then(response => {
+                console.log('authkey set');
+                localStorage.setItem('authKey', JSON.stringify(response.data));
+                window.opener.postMessage({ isLoggedin: true }, window.opener.origin);
+    
+                })
+                .catch(error => {
+                console.log(error);
+                });
+                window.opener.postMessage({ isLoggedin: true }, window.opener.origin);
+        }
+        window.close();
+            
          
     },[queryParameters])
  
@@ -38,7 +43,7 @@ const AuthCalback = () => {
     
     return ( <div className="callback">
       <h1>Callback</h1>
-     <button onClick={()=>{window.close();}}> close window</button>
+     
     </div> );
 
 }

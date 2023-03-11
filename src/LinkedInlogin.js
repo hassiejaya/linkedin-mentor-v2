@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-import { useLinkedIn } from 'react-linkedin-login-oauth2';
+import { useLinkedIn} from 'react-linkedin-login-oauth2';
 // You can use provided image shipped by this package or using your own
 import linkedin from 'react-linkedin-login-oauth2/assets/linkedin.png';
 
 function LinkedInPage() {
+
   const { linkedInLogin } = useLinkedIn({
     clientId: '86pe6qha0ri8b7',
     redirectUri: `http://localhost:3000/callback`, // for Next.js, you can use `${typeof window === 'object' && window.location.origin}/linkedin`
@@ -13,8 +14,9 @@ function LinkedInPage() {
     },
     onError: (error) => {
       console.log(error);
-    },state:'hassiestate',scope:'r_liteprofile+r_emailaddress+w_member_social'
+    },scope:'r_liteprofile+r_emailaddress+w_member_social'
   });
+  
 
   return (
     <img

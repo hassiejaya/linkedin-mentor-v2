@@ -27,10 +27,25 @@ app.post('/api/proxy',(req,res)=>{
     res.send(response.data);
   }).catch(error=>{
     console.log(error, "from proxy!!");
+    console.data;
     //res.status(500).send('An error occurred');
   });
 });
 
+app.get('/api/proxy', (req, res) => {
+  const { url, headers } = req.query;
+
+  axios({
+    method: 'get',
+    url: url,
+    headers: headers,
+  }).then(response=>{
+    res.send(response.data);
+  }).catch(error=>{
+    console.log(error, "from proxy get!!");
+    res.status(500).send('An error occurred',error);
+  });
+});
 
 
 
