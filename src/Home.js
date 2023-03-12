@@ -9,7 +9,7 @@ const Home = () => {
       'Content-Type': 'application/json',
     };
     useEffect(()=>{
-        axios.get('http://localhost:4000/api/proxy', {  params: {
+        axios.get('https://localhost:4000/api/proxy', {  params: {
             url: apiUrl,
             headers: headers
         }

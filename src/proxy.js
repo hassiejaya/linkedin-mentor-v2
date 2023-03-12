@@ -3,10 +3,10 @@ const https = require('https');
 const fs = require('fs');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-
+const axios = require('axios');
 const app = express();
 const port = 4000;
-
+NODE_TLS_REJECT_UNAUTHORIZED=0
 const corsOptions = {
   origin: 'http://localhost:3000',
   credentials: true
@@ -23,18 +23,20 @@ app.post('/api/proxy',(req,res)=>{
     method: 'post',
     url: url,
     data: data,
+    rejectUnauthorized: false,
     headers: headers,
   }).then(response=>{
     res.send(response.data);
+    console.log('post response sent');
   }).catch(error=>{
     console.log(error, "from proxy!!");
-    console.data;
+    // console.data;
     //res.status(500).send('An error occurred');
   });
 });
 
 app.use('/api/proxy', (req, res) => {
-  console.log(req.query);
+   console.log(req);
   const { url, headers } = req.query;
   console.log(req.url,"url",req.headers,'headers');
   axios({
@@ -48,6 +50,11 @@ app.use('/api/proxy', (req, res) => {
     console.log(error, "from proxy get!!");
     res.status(500).send('An error occurred',error);
   });
+});
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+  console.log("hello world");
 });
 
 const options = {
