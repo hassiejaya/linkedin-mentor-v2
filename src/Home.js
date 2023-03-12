@@ -9,13 +9,11 @@ const Home = () => {
       'Content-Type': 'application/json',
     };
     useEffect(()=>{
-        axios.get('http://localhost:4000/api/proxy', {
-                url: 'https://api.linkedin.com/v2/me',
-                headers: {
-                    'Authorization': `Bearer ${apiki.access_token}`,
-                    'Content-Type': 'application/json',
-                }
-                })
+        axios.get('http://localhost:4000/api/proxy', {  params: {
+            url: apiUrl,
+            headers: headers
+        }
+          })
                 .then(response => {
                 console.log(response.data)
                 })

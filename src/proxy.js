@@ -32,13 +32,15 @@ app.post('/api/proxy',(req,res)=>{
   });
 });
 
-app.get('/api/proxy', (req, res) => {
+app.use('/api/proxy', (req, res) => {
+  console.log(req.query);
   const { url, headers } = req.query;
-
+  console.log(req.url,"url",req.headers,'headers');
   axios({
     method: 'get',
     url: url,
-    headers: headers,
+    headers: req.headers,
+    rejectUnauthorized: false
   }).then(response=>{
     res.send(response.data);
   }).catch(error=>{
