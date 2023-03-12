@@ -1,10 +1,11 @@
 const express = require('express');
-const axios = require('axios');
+const https = require('https');
+const fs = require('fs');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+
 const app = express();
 const port = 4000;
-
 
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -49,8 +50,11 @@ app.use('/api/proxy', (req, res) => {
   });
 });
 
+const options = {
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.crt')
+};
 
-
-app.listen(port, () => {
+https.createServer(options, app).listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
