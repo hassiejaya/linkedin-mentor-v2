@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import UploadPost from './UploadPost';
 const Home = () => {
     const [user, setUser] = useState(null);
     const [profilePicUrl, setProfilePicUrl] = useState(null);
@@ -53,6 +54,7 @@ const Home = () => {
        {/* {!user && <h1>Home</h1>} */}
        {user && <h4>Hello {user.localizedFirstName} Welcome to LinkedIn Mentor, your personalized linkedin Guide</h4>}
       {profilePicUrl && <img src={profilePicUrl}></img>}
+      {user&&apiki&&<UploadPost member_id = {user.id} post_text ={"This is a sample post number 3"}  />}
         
     </div> );
 }

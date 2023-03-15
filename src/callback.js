@@ -26,15 +26,17 @@ const AuthCalback = () => {
                 .then(response => {
                 console.log('authkey set');
                 localStorage.setItem('authKey', JSON.stringify(response.data));
+                console.log(localStorage.getItem('authKey'));
                 window.opener.postMessage({ isLoggedin: true }, window.opener.origin);
-    
+                window.close();
                 })
                 .catch(error => {
                 console.log(error);
-                });
                 window.opener.postMessage({ isLoggedin: true }, window.opener.origin);
+                });
+                
         }
-        window.close();
+        
             
          
     },[queryParameters])
@@ -42,7 +44,7 @@ const AuthCalback = () => {
     
     
     return ( <div className="callback">
-      <h1>Callback</h1>
+     
      
     </div> );
 

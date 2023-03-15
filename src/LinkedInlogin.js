@@ -14,7 +14,7 @@ function LinkedInPage() {
     },
     onError: (error) => {
       console.log(error);
-    },scope:'r_liteprofile+r_emailaddress+w_member_social'
+    },scope:'r_liteprofile+r_emailaddress+w_member_social+r_basicprofile'
   });
   
 
